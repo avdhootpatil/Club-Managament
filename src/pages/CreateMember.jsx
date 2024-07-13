@@ -197,8 +197,8 @@ function CreateMember() {
                         index === 0
                           ? ""
                           : index === 1
-                          ? `bg-green-500 text-yellow-50`
-                          : `bg-yellow-500 text-yellow-50`
+                            ? `bg-green-500 text-yellow-50`
+                            : `bg-yellow-500 text-yellow-50`
                       }
                     >
                       {plan.status}
@@ -279,12 +279,16 @@ function CreateMember() {
         <div>
           <h2 className="text-lg font-medium">Biometric</h2>
           <div className="space-y-2 mt-4">
-            <Label htmlFor="biometric">Biometric</Label>
-            <Input
-              id="biometric"
-              type="text"
-              placeholder="Enter biometric details"
-            />
+            <Label htmlFor="biometric">Biometric Status</Label>
+            <Select id="biometric-status">
+              <SelectTrigger>
+                <SelectValue placeholder="Select biometric status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pending">Yes</SelectItem>
+                <SelectItem value="paid">No</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="flex justify-end gap-2 mt-10">

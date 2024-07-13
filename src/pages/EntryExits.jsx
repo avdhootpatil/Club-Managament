@@ -35,7 +35,7 @@ import { useState } from "react";
 function ValuedCustomer() {
   return (
     <div className="p-3">
-      <div className="grid gap-2">
+      {/* <div className="grid gap-2">
         <Label htmlFor="payment-status">Member</Label>
         <Select id="payment-status">
           <SelectTrigger>
@@ -46,7 +46,7 @@ function ValuedCustomer() {
             <SelectItem value="incomplete">Member 2</SelectItem>
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
       <div className="my-5">
         <Card className="w-full max-w-md">
@@ -348,22 +348,26 @@ function HotelGuest() {
 function EntryExits() {
   const [entries, setEntries] = useState([
     {
-      type: "Valued Member",
+      type: "Hotel Guest",
       name: "John Doe",
       email: "john@example.com",
       phone: "123-456-7890",
       notes: "VIP customer",
       isValid: true,
-      balance: 500,
+      openingBalance: 500.0,
+      charges: 0,
+      closingBalance: 500,
     },
     {
-      type: "Valued Member",
+      type: "Accompanying Guest",
       name: "Jane Smith",
       email: "jane@example.com",
       phone: "987-654-3210",
       notes: "Frequent visitor",
       isValid: true,
-      balance: 300,
+      openingBalance: 300,
+      charges: 0,
+      closingBalance: 300,
     },
     {
       type: "Valued Member",
@@ -371,17 +375,21 @@ function EntryExits() {
       email: "bob@example.com",
       phone: "555-555-5555",
       notes: "Loyal customer",
-      isValid: false,
-      balance: -20,
+      isValid: true,
+      openingBalance: -20,
+      charges: 0,
+      closingBalance: -20,
     },
     {
-      type: "Valued Member",
+      type: "Walk-in Customer",
       name: "Alice Williams",
       email: "alice@example.com",
       phone: "111-222-3333",
       notes: "VIP member",
       isValid: true,
-      balance: 800,
+      openingBalance: 800,
+      charges: 0,
+      closingBalance: 800,
     },
     {
       type: "Valued Member",
@@ -390,7 +398,9 @@ function EntryExits() {
       phone: "444-444-4444",
       notes: "Preferred customer",
       isValid: false,
-      balance: -100,
+      openingBalance: -100,
+      charges: 0,
+      closingBalance: -100,
     },
   ]);
   const [currentEntry, setCurrentEntry] = useState(null);
@@ -423,14 +433,14 @@ function EntryExits() {
           className={`bg-primary text-primary-foreground p-4 rounded-lg cursor-pointer hover:bg-primary/90 ${
             activeCard === "Valued Member" ? "bg-primary/90" : ""
           }`}
-          // onClick={() => {
-          //   handleCreateEntry("Valued Member");
-          //   handleCardClick("Valued Member");
-          // }}
+          onClick={() => {
+            handleCreateEntry("Valued Member");
+            handleCardClick("Valued Member");
+          }}
         >
           <div className="text-lg font-semibold">Valued Member</div>
           <div className="mt-4">
-            {entries
+            {/* {entries
               .filter((entry) => entry.type === "Valued Member")
               .slice(0, 3)
               .map((entry, index) => (
@@ -445,7 +455,14 @@ function EntryExits() {
                     Valid
                   </div>
                 </div>
-              ))}
+              ))} */}
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-sm font-medium">Jane Doe</div>
+              <div className="bg-green-500 text-green-50 px-2 py-1 rounded-full text-xs">
+                Valid
+              </div>
+            </div>
+            <Button variant="secondary">Grant Access</Button>
           </div>
         </div>
         <div
@@ -585,8 +602,10 @@ function EntryExits() {
               <TableHead>Phone</TableHead>
               <TableHead>Notes</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Balance</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>Opening Balance</TableHead>
+              <TableHead>Charges</TableHead>
+              <TableHead>Closing Balance</TableHead>
+              {/* <TableHead>Actions</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -599,17 +618,19 @@ function EntryExits() {
                 <TableCell>{entry.notes}</TableCell>
                 <TableCell>
                   {entry.isValid ? (
-                    <div className="bg-green-500 text-green-50 px-2 py-1 rounded-full">
+                    <div className="bg-green-500 text-green-50 px-2 py-1 rounded-full text-center">
                       Valid
                     </div>
                   ) : (
-                    <div className="bg-red-500 text-red-50 px-2 py-1 rounded-full">
+                    <div className="bg-red-500 text-red-50 px-2 py-1 rounded-full text-center">
                       Invalid
                     </div>
                   )}
                 </TableCell>
-                <TableCell>{entry.balance.toFixed(2)}</TableCell>
-                <TableCell>
+                <TableCell>{entry.openingBalance}</TableCell>
+                <TableCell>{entry.charges}</TableCell>
+                <TableCell>{entry.closingBalance}</TableCell>
+                {/* <TableCell>
                   {!entry.isValid && (
                     <Button
                       variant="outline"
@@ -619,7 +640,7 @@ function EntryExits() {
                       Grant Access
                     </Button>
                   )}
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
